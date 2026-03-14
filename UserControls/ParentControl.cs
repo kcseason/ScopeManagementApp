@@ -1,8 +1,88 @@
-﻿namespace PMPManagementApp
+﻿using ScopeManagementApp;
+
+namespace PMPManagementTool.UserControls
 {
-    public static class ControlHelper
+    public partial class ParentControl : UserControl
     {
-        public static void dgvMain_CellPainting(object sender, DataGridViewCellPaintingEventArgs e, Dictionary<(int, int, int), string> mergeCells, DataGridView dataGridView)
+        public DataGridView dataGridView;
+        private SearchForm searchForm;
+
+        public ParentControl()
+        {
+            InitializeComponent();
+        }
+
+        public virtual void InitializeComponent()
+        {
+            // 设置控件属性
+            this.Dock = DockStyle.Fill;
+
+            this.BackColor = SystemColors.ControlLight;
+
+            // 创建并配置DataGridView
+            dataGridView = new DataGridView
+            {
+                Dock = DockStyle.Fill,
+                AllowUserToAddRows = false,
+                ReadOnly = true,
+                SelectionMode = DataGridViewSelectionMode.CellSelect,
+                GridColor = SystemColors.ControlDark,
+                BorderStyle = BorderStyle.Fixed3D,
+                BackgroundColor = Color.White,
+                RowHeadersVisible = false,  // 隐藏默认行标题
+                ColumnHeadersVisible = false, // 隐藏默认列标题
+                Font = new Font("微软雅黑", 18) // 设置字体大小为18
+            };
+
+            // 设置行样式
+            DataGridViewCellStyle rowStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.White,
+                SelectionBackColor = Color.LightBlue,
+                WrapMode = DataGridViewTriState.True,
+                Alignment = DataGridViewContentAlignment.TopLeft,
+                Font = new Font("微软雅黑", 18) // 设置行字体大小为18
+            };
+            dataGridView.DefaultCellStyle = rowStyle;
+
+            // 设置行高自适应
+            dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridView.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridView.RowTemplate.Height = 0;
+
+            dataGridView.KeyDown += DataGridView_KeyDown; ;
+            this.Controls.Add(dataGridView);
+        }
+
+        private void DataGridView_KeyDown(object? sender, KeyEventArgs e)
+        {
+            // 处理Ctrl+F快捷键
+            if (e.Control && e.KeyCode == Keys.F)
+            {
+                ShowSearchForm();
+                e.Handled = true;
+            }
+        }
+
+        private void ShowSearchForm()
+        {
+            // 显示搜索窗体（修复：每次都检查并创建新实例）
+            if (searchForm == null || searchForm.IsDisposed)
+            {
+                searchForm = new SearchForm((MainForm)this.FindForm());
+            }
+
+            // 确保窗体可见并获得焦点
+            if (!searchForm.Visible)
+            {
+                searchForm.Show();
+            }
+
+            searchForm.BringToFront();
+            searchForm.Activate();
+        }
+
+        public void dgvMain_CellPainting(object sender, DataGridViewCellPaintingEventArgs e, Dictionary<(int, int, int), string> mergeCells)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
 

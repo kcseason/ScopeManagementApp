@@ -36,6 +36,12 @@
     <Compile Update="UserControls\ScheduleManagementControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="UserControls\TermComparisonControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UserControls\ToolAndTechControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="UserControls\ScopeManagementControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

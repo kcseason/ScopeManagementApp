@@ -1,14 +1,8 @@
-﻿
-using System;
-using System.DirectoryServices.ActiveDirectory;
-using System.Drawing;
-using System.Reflection.Emit;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
+﻿using System.Text.RegularExpressions;
 
-namespace ScopeManagementApp.UserControls
+namespace PMPManagementTool.UserControls
 {
-    partial class KnowledgeDomainControl : UserControl
+    partial class KnowledgeDomainControl : ParentControl
     {
         // 存储正确答案和用户缓存的字典 (Key: RowIndex, ColIndex)
         private Dictionary<(int, int), string> correctAnswers = new Dictionary<(int, int), string>();
@@ -66,37 +60,37 @@ namespace ScopeManagementApp.UserControls
         private void SetBackground()
         {
             // 为特定单元格设置背景色（例如：年龄大于27的行背景色设为浅红色）
-            for (int i = 0; i < dgvMain.Rows.Count; i++)
+            for (int i = 0; i < dataGridView.Rows.Count; i++)
             {
                 if (i == 0)
                 {
-                    dgvMain.Rows[i].Cells[0].Style.BackColor = ColorProcessGray;
-                    dgvMain.Rows[i].Cells[1].Style.BackColor = ColorProcessYellow;
-                    dgvMain.Rows[i].Cells[2].Style.BackColor = ColorHeaderGreen;
-                    dgvMain.Rows[i].Cells[3].Style.BackColor = ColorProcessBlue;
-                    dgvMain.Rows[i].Cells[4].Style.BackColor = ColorProcessRed;
-                    dgvMain.Rows[i].Cells[5].Style.BackColor = ColorHeaderYellow;
+                    dataGridView.Rows[i].Cells[0].Style.BackColor = ColorProcessGray;
+                    dataGridView.Rows[i].Cells[1].Style.BackColor = ColorProcessYellow;
+                    dataGridView.Rows[i].Cells[2].Style.BackColor = ColorHeaderGreen;
+                    dataGridView.Rows[i].Cells[3].Style.BackColor = ColorProcessBlue;
+                    dataGridView.Rows[i].Cells[4].Style.BackColor = ColorProcessRed;
+                    dataGridView.Rows[i].Cells[5].Style.BackColor = ColorHeaderYellow;
                 }
                 else
                 {
 
-                    for (int j = 0; j < dgvMain.Columns.Count - 1; j++)
+                    for (int j = 0; j < dataGridView.Columns.Count - 1; j++)
                     {
                         if (i >= 1 && i <= 2)
                         {
-                            dgvMain.Rows[i].Cells[0].Style.BackColor = ColorProcessBlue;
+                            dataGridView.Rows[i].Cells[0].Style.BackColor = ColorProcessBlue;
                         }
                         if (i >= 3 && i <= 6)
                         {
-                            dgvMain.Rows[i].Cells[0].Style.BackColor = ColorHeaderYellow;
+                            dataGridView.Rows[i].Cells[0].Style.BackColor = ColorHeaderYellow;
                         }
                         if (i >= 7 && i <= 16)
                         {
-                            dgvMain.Rows[i].Cells[0].Style.BackColor = ColorHeaderGreen;
+                            dataGridView.Rows[i].Cells[0].Style.BackColor = ColorHeaderGreen;
                         }
                         if (i >= 17 && i <= 27)
                         {
-                            dgvMain.Rows[i].Cells[0].Style.BackColor = ColorHeaderYellow;
+                            dataGridView.Rows[i].Cells[0].Style.BackColor = ColorHeaderYellow;
                         }
                     }
                 }
@@ -105,50 +99,50 @@ namespace ScopeManagementApp.UserControls
 
         private void InitializeDataGrid()
         {
-            dgvMain.AllowUserToAddRows = false;
-            dgvMain.RowHeadersVisible = false;
-            dgvMain.ColumnHeadersVisible = false;
-            dgvMain.BorderStyle = BorderStyle.None;
-            dgvMain.BackgroundColor = Color.White;
-            dgvMain.DefaultCellStyle.Font = new Font("微软雅黑", 16);
-            dgvMain.GridColor = Color.Black;
+            dataGridView.AllowUserToAddRows = false;
+            dataGridView.RowHeadersVisible = false;
+            dataGridView.ColumnHeadersVisible = false;
+            dataGridView.BorderStyle = BorderStyle.None;
+            dataGridView.BackgroundColor = Color.White;
+            dataGridView.DefaultCellStyle.Font = new Font("微软雅黑", 16);
+            dataGridView.GridColor = Color.Black;
 
-            dgvMain.EditMode = DataGridViewEditMode.EditOnEnter;
+            dataGridView.EditMode = DataGridViewEditMode.EditOnEnter;
 
             // 创建6列：1列知识领域 + 5个过程组
-            dgvMain.Columns.Add(new DataGridViewTextBoxColumn() { Width = 210 }); // 知识领域
-            dgvMain.Columns.Add(new DataGridViewTextBoxColumn() { Width = 220 }); // 启动
-            dgvMain.Columns.Add(new DataGridViewTextBoxColumn() { Width = 250 }); // 规划
-            dgvMain.Columns.Add(new DataGridViewTextBoxColumn() { Width = 250 }); // 执行
-            dgvMain.Columns.Add(new DataGridViewTextBoxColumn() { Width = 250 }); // 监控
-            dgvMain.Columns.Add(new DataGridViewTextBoxColumn() { Width = 250 }); // 收尾
+            dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Width = 210 }); // 知识领域
+            dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Width = 220 }); // 启动
+            dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Width = 250 }); // 规划
+            dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Width = 250 }); // 执行
+            dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Width = 250 }); // 监控
+            dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Width = 250 }); // 收尾
 
             // 创建28行 (1行过程组标题 + 27行内容)
-            dgvMain.Rows.Add(28);
+            dataGridView.Rows.Add(28);
 
             // 设置第一行（过程组标题）
-            dgvMain[0, 0].Value = "知识领域";
-            dgvMain[1, 0].Value = "启动过程组";
-            dgvMain[2, 0].Value = "规划过程组";
-            dgvMain[3, 0].Value = "执行过程组";
-            dgvMain[4, 0].Value = "监控过程组";
-            dgvMain[5, 0].Value = "收尾过程组";
+            dataGridView[0, 0].Value = "知识领域";
+            dataGridView[1, 0].Value = "启动过程组";
+            dataGridView[2, 0].Value = "规划过程组";
+            dataGridView[3, 0].Value = "执行过程组";
+            dataGridView[4, 0].Value = "监控过程组";
+            dataGridView[5, 0].Value = "收尾过程组";
 
             // 设置第一列（知识领域标题）- 坐标对应 LoadAnswers 的行分布
-            dgvMain[0, 1].Value = "4.项目整合管理";
-            dgvMain[0, 3].Value = "5.项目范围管理";
-            dgvMain[0, 7].Value = "6.项目进度管理";
-            dgvMain[0, 13].Value = "7.项目成本管理";
-            dgvMain[0, 16].Value = "8.项目质量管理";
-            dgvMain[0, 17].Value = "9.项目资源管理";
-            dgvMain[0, 20].Value = "10.项目沟通管理";
-            dgvMain[0, 21].Value = "11.项目风险管理";
-            dgvMain[0, 26].Value = "12.项目采购管理";
-            dgvMain[0, 27].Value = "13.项目干系人管理";
+            dataGridView[0, 1].Value = "4.项目整合管理";
+            dataGridView[0, 3].Value = "5.项目范围管理";
+            dataGridView[0, 7].Value = "6.项目进度管理";
+            dataGridView[0, 13].Value = "7.项目成本管理";
+            dataGridView[0, 16].Value = "8.项目质量管理";
+            dataGridView[0, 17].Value = "9.项目资源管理";
+            dataGridView[0, 20].Value = "10.项目沟通管理";
+            dataGridView[0, 21].Value = "11.项目风险管理";
+            dataGridView[0, 26].Value = "12.项目采购管理";
+            dataGridView[0, 27].Value = "13.项目干系人管理";
 
             // 设置标题列只读
-            for (int r = 0; r < dgvMain.RowCount; r++) dgvMain[0, r].ReadOnly = true;
-            for (int c = 0; c < dgvMain.ColumnCount; c++) dgvMain[c, 0].ReadOnly = true;
+            for (int r = 0; r < dataGridView.RowCount; r++) dataGridView[0, r].ReadOnly = true;
+            for (int c = 0; c < dataGridView.ColumnCount; c++) dataGridView[c, 0].ReadOnly = true;
         }
 
         private void LoadAnswers()
@@ -235,7 +229,7 @@ namespace ScopeManagementApp.UserControls
             var answer = 0;
             foreach (var entry in correctAnswers)
             {
-                var cell = dgvMain[entry.Key.Item2, entry.Key.Item1];
+                var cell = dataGridView[entry.Key.Item2, entry.Key.Item1];
                 string input = cell.Value?.ToString()?.Trim();
                 if (Parse(entry.Value) != input)
                     cell.Style.BackColor = Color.Red;
@@ -252,7 +246,7 @@ namespace ScopeManagementApp.UserControls
         {
             foreach (var entry in correctAnswers)
             {
-                var cell = dgvMain[entry.Key.Item2, entry.Key.Item1];
+                var cell = dataGridView[entry.Key.Item2, entry.Key.Item1];
                 cell.Value = "";
                 cell.Style.BackColor = Color.White;
                 cell.Style.ForeColor = Color.Black;
@@ -268,7 +262,7 @@ namespace ScopeManagementApp.UserControls
                 userCache.Clear();
                 foreach (var entry in correctAnswers)
                 {
-                    var cell = dgvMain[entry.Key.Item2, entry.Key.Item1];
+                    var cell = dataGridView[entry.Key.Item2, entry.Key.Item1];
                     userCache[entry.Key] = cell.Value?.ToString();
                     cell.Value = entry.Value;
                     cell.Style.ForeColor = Color.Blue;
@@ -279,7 +273,7 @@ namespace ScopeManagementApp.UserControls
             {
                 foreach (var entry in correctAnswers)
                 {
-                    var cell = dgvMain[entry.Key.Item2, entry.Key.Item1];
+                    var cell = dataGridView[entry.Key.Item2, entry.Key.Item1];
                     cell.Value = userCache.ContainsKey(entry.Key) ? userCache[entry.Key] : "";
                     cell.Style.ForeColor = Color.Black;
                 }
@@ -288,7 +282,7 @@ namespace ScopeManagementApp.UserControls
             isShowingAnswer = !isShowingAnswer;
         }
 
-        private void dgvMain_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        private void dataGridView_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
 
@@ -299,7 +293,7 @@ namespace ScopeManagementApp.UserControls
                     if (item.Key.Item2 == e.RowIndex)
                     {
                         using (Brush backColorBrush = new SolidBrush(e.CellStyle.BackColor))
-                        using (Pen gridLinePen = new Pen(dgvMain.GridColor))
+                        using (Pen gridLinePen = new Pen(dataGridView.GridColor))
                         {
                             // 1. 擦除原本內容
                             e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
@@ -324,7 +318,7 @@ namespace ScopeManagementApp.UserControls
                     else if (item.Key.Item3 == e.RowIndex)
                     {
                         using (Brush backColorBrush = new SolidBrush(e.CellStyle.BackColor))
-                        using (Pen gridLinePen = new Pen(dgvMain.GridColor))
+                        using (Pen gridLinePen = new Pen(dataGridView.GridColor))
                         {
                             // 1. 擦除原本內容
                             e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
@@ -344,7 +338,7 @@ namespace ScopeManagementApp.UserControls
                     else if (e.RowIndex > item.Key.Item2 && e.RowIndex < item.Key.Item3)
                     {
                         using (Brush backColorBrush = new SolidBrush(e.CellStyle.BackColor))
-                        using (Pen gridLinePen = new Pen(dgvMain.GridColor))
+                        using (Pen gridLinePen = new Pen(dataGridView.GridColor))
                         {
                             // 1. 擦除原本內容
                             e.Graphics.FillRectangle(backColorBrush, e.CellBounds);

@@ -1,4 +1,4 @@
-using ScopeManagementApp.UserControls;
+using PMPManagementTool.UserControls;
 
 namespace ScopeManagementApp
 {
@@ -8,7 +8,17 @@ namespace ScopeManagementApp
         private ToolStripButton showTableButton;
         private Panel contentPanel;
 
-        private string[] tableNameStr = { "知识领域", "整合管理", "范围管理", "进度管理", "成本管理", "质量管理", "资源管理", "沟通管理", "风险管理", "采购管理", "干系人管理" };
+        private DataGridView dataGridView;
+        private List<DataGridViewCell> highlightedCells = new List<DataGridViewCell>();
+        private SearchForm searchForm;
+        private Color originalCellColor;
+
+        private string[] tableNameStr =
+        { 
+            "知识领域", "整合管理", "范围管理", "进度管理", "成本管理", "质量管理", 
+            "资源管理", "沟通管理", "风险管理", "采购管理", "干系人管理", "工具与技术",
+            "易混术语"
+        };
 
         public MainForm()
         {
@@ -73,8 +83,9 @@ namespace ScopeManagementApp
         private void ShowTableButton_Click(object sender, EventArgs e)
         {
             contentPanel.Controls.Clear();
-            UserControl userControl = null;
+            ParentControl userControl = null;
             var btnName = (sender as ToolStripButton)?.Text;
+
             switch (btnName)
             {
                 case "知识领域": userControl = new KnowledgeDomainControl(); break;
@@ -88,10 +99,13 @@ namespace ScopeManagementApp
                 case "风险管理": userControl = new RiskManagementControl(); break;
                 case "采购管理": userControl = new ProcurementManagementControl(); break;
                 case "干系人管理": userControl = new StakeholderManagementControl(); break;
+                case "工具与技术": userControl = new ToolAndTechControl(); break;
+                case "易混术语": userControl = new TermComparisonControl(); break;
             }
 
             if (userControl != null)
             {
+                dataGridView = userControl.dataGridView;
                 userControl.Dock = DockStyle.Fill;
                 contentPanel.Controls.Add(userControl);
 
@@ -108,6 +122,49 @@ namespace ScopeManagementApp
             {
                 contentPanel.Invalidate();
             }
+        }
+
+        public void SearchAndHighlight(string searchText)
+        {
+            // 清除之前的高亮
+            ClearHighlights();
+
+            if (string.IsNullOrEmpty(searchText))
+                return;
+
+            // 查找匹配的单元格
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                if (row.Index == 0)
+                    continue;
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value != null &&
+                        cell.Value.ToString().IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        highlightedCells.Add(cell);
+                        cell.Style.BackColor = Color.LightGreen;
+                    }
+                }
+            }
+
+            // 定位到第一个匹配项
+            if (highlightedCells.Count > 0)
+            {
+                var firstMatch = highlightedCells[0];
+                dataGridView.CurrentCell = firstMatch;
+                dataGridView.FirstDisplayedScrollingRowIndex = firstMatch.RowIndex;
+            }
+        }
+
+        public void ClearHighlights()
+        {
+            // 恢复所有高亮单元格的原始颜色
+            foreach (var cell in highlightedCells)
+            {
+                cell.Style.BackColor = originalCellColor;
+            }
+            highlightedCells.Clear();
         }
     }
 

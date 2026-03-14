@@ -1,13 +1,7 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-
-namespace ScopeManagementApp.UserControls
+﻿namespace PMPManagementTool.UserControls
 {
-    public class CommunicationManagementControl : UserControl
+    public class CommunicationManagementControl : ParentControl
     {
-        private DataGridView dataGridView;
-
         public CommunicationManagementControl()
         {
             InitializeComponent();
@@ -16,38 +10,6 @@ namespace ScopeManagementApp.UserControls
 
         private void InitializeComponent()
         {
-            this.Dock = DockStyle.Fill;
-            
-            this.BackColor = SystemColors.ControlLight;
-
-            dataGridView = new DataGridView
-            {
-                Dock = DockStyle.Fill,
-                AllowUserToAddRows = false,
-                ReadOnly = true,
-                SelectionMode = DataGridViewSelectionMode.CellSelect,
-                GridColor = SystemColors.ControlDark,
-                BorderStyle = BorderStyle.Fixed3D,
-                BackgroundColor = Color.White,
-                RowHeadersVisible = false,
-                ColumnHeadersVisible = false,
-                Font = new Font("微软雅黑", 18)
-            };
-
-            DataGridViewCellStyle rowStyle = new DataGridViewCellStyle
-            {
-                BackColor = Color.White,
-                SelectionBackColor = Color.LightBlue,
-                WrapMode = DataGridViewTriState.True,
-                Alignment = DataGridViewContentAlignment.TopLeft,
-                Font = new Font("微软雅黑", 18)
-            };
-            dataGridView.DefaultCellStyle = rowStyle;
-
-            dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridView.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            dataGridView.RowTemplate.Height = 0;
-
             // 添加列（6列：组+过程+目的+输入+工具与技术+输出）
             for (int i = 0; i < 6; i++)
             {
@@ -57,8 +19,6 @@ namespace ScopeManagementApp.UserControls
                 else
                     dataGridView.Columns[i].Width = 200; // 设置列宽
             }
-
-            this.Controls.Add(dataGridView);
         }
 
         private void LoadCommunicationData()

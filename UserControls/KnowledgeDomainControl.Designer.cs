@@ -2,12 +2,12 @@
 using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace ScopeManagementApp.UserControls
+namespace PMPManagementTool.UserControls
 {
     partial class KnowledgeDomainControl
     {
         private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.DataGridView dgvMain;
+        private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnAnswer;
@@ -18,28 +18,28 @@ namespace ScopeManagementApp.UserControls
             base.Dispose(disposing);
         }
 
-        private void InitializeComponent()
+        public override void InitializeComponent()
         {
-            dgvMain = new DataGridView();
+            dataGridView = new DataGridView();
             btnSubmit = new Button();
             btnClear = new Button();
             btnAnswer = new Button();
             label1 = new Label();
             label2 = new Label();
-            ((System.ComponentModel.ISupportInitialize)dgvMain).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
-            // dgvMain
+            // dataGridView
             // 
-            dgvMain.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dgvMain.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvMain.Dock = DockStyle.Top;
-            dgvMain.Location = new Point(0, 0);
-            dgvMain.Name = "dgvMain";
-            dgvMain.RowTemplate.Height = 23;
-            dgvMain.Size = new Size(1460, 955);
-            dgvMain.TabIndex = 0;
-            dgvMain.CellPainting += dgvMain_CellPainting;
+            dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView.Dock = DockStyle.Top;
+            dataGridView.Location = new Point(0, 0);
+            dataGridView.Name = "dataGridView";
+            dataGridView.RowTemplate.Height = 23;
+            dataGridView.Size = new Size(1460, 955);
+            dataGridView.TabIndex = 0;
+            dataGridView.CellPainting += dataGridView_CellPainting;
             // 
             // btnSubmit
             // 
@@ -104,11 +104,11 @@ namespace ScopeManagementApp.UserControls
             Controls.Add(btnAnswer);
             Controls.Add(btnClear);
             Controls.Add(btnSubmit);
-            Controls.Add(dgvMain);
+            Controls.Add(dataGridView);
             Margin = new Padding(4, 5, 4, 5);
             Name = "KnowledgeDomainControl";
             Size = new Size(1460, 1037);
-            ((System.ComponentModel.ISupportInitialize)dgvMain).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }

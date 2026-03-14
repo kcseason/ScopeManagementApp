@@ -1,13 +1,7 @@
-﻿using PMPManagementApp;
-using System;
-using System.Drawing;
-using System.Windows.Forms;
-
-namespace ScopeManagementApp.UserControls
+﻿namespace PMPManagementTool.UserControls
 {
-    public class ScheduleManagementControl : UserControl
+    public class ScheduleManagementControl : ParentControl
     {
-        private DataGridView dataGridView;
         private Dictionary<(int, int, int), string> mergeCells = new Dictionary<(int, int, int), string>
         {
             { (0, 1, 5), "规划过程组" }
@@ -21,42 +15,6 @@ namespace ScopeManagementApp.UserControls
 
         private void InitializeComponent()
         {
-            // 设置控件属性
-            this.Dock = DockStyle.Fill;
-            
-            this.BackColor = SystemColors.ControlLight;
-
-            // 创建并配置DataGridView
-            dataGridView = new DataGridView
-            {
-                Dock = DockStyle.Fill,
-                AllowUserToAddRows = false,
-                ReadOnly = true,
-                SelectionMode = DataGridViewSelectionMode.CellSelect,
-                GridColor = SystemColors.ControlDark,
-                BorderStyle = BorderStyle.Fixed3D,
-                BackgroundColor = Color.White,
-                RowHeadersVisible = false,  // 隐藏默认行标题
-                ColumnHeadersVisible = false, // 隐藏默认列标题
-                Font = new Font("微软雅黑", 18) // 设置字体大小为18
-            };
-
-            // 设置行样式
-            DataGridViewCellStyle rowStyle = new DataGridViewCellStyle
-            {
-                BackColor = Color.White,
-                SelectionBackColor = Color.LightBlue,
-                WrapMode = DataGridViewTriState.True,
-                Alignment = DataGridViewContentAlignment.TopLeft,
-                Font = new Font("微软雅黑", 18) // 设置行字体大小为18
-            };
-            dataGridView.DefaultCellStyle = rowStyle;
-
-            // 设置行高自适应
-            dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridView.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            dataGridView.RowTemplate.Height = 0;
-
             // 添加列（6列：组+过程+目的+输入+工具与技术+输出）
             for (int i = 0; i < 6; i++)
             {
@@ -67,7 +25,6 @@ namespace ScopeManagementApp.UserControls
                     dataGridView.Columns[i].Width = 200; // 设置列宽
             }
             dataGridView.CellPainting += dgvMain_CellPainting;
-            this.Controls.Add(dataGridView);
         }
 
         private void LoadScheduleData()
@@ -164,7 +121,7 @@ namespace ScopeManagementApp.UserControls
 
         private void dgvMain_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            ControlHelper.dgvMain_CellPainting(sender, e, mergeCells, dataGridView);
+            dgvMain_CellPainting(sender, e, mergeCells);
         }
     }
 }
