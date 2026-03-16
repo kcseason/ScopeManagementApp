@@ -7,7 +7,6 @@ namespace PMPManagementTool.UserControls
     partial class KnowledgeDomainControl
     {
         private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnAnswer;

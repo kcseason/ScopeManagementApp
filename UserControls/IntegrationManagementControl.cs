@@ -10,6 +10,7 @@
 
         public IntegrationManagementControl()
         {
+            this.ControlName = "整合管理";
             InitializeComponent();
             LoadIntegrationData();
         }

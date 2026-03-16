@@ -5,6 +5,7 @@ namespace PMPManagementTool.UserControls
     public partial class ParentControl : UserControl
     {
         public DataGridView dataGridView;
+        public string ControlName;
         private SearchForm searchForm;
 
         public ParentControl()

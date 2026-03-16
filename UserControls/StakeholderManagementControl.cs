@@ -4,6 +4,7 @@
     {
         public StakeholderManagementControl()
         {
+            this.ControlName = "干系人管理";
             InitializeComponent();
             LoadStakeholderData();
         }

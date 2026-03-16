@@ -10,6 +10,7 @@
 
         public ScopeManagementControl()
         {
+            this.ControlName = "范围管理";
             InitializeComponent();
             LoadScopeData();
         }

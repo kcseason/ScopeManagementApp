@@ -9,6 +9,7 @@
 
         public ScheduleManagementControl()
         {
+            this.ControlName = "进度管理";
             InitializeComponent();
             LoadScheduleData();
         }

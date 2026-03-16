@@ -8,6 +8,7 @@
         };
         public RiskManagementControl()
         {
+            this.ControlName = "风险管理";
             InitializeComponent();
             LoadRiskData();
         }

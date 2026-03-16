@@ -4,6 +4,7 @@
     {
         public ToolAndTechControl()
         {
+            this.ControlName = "工具与技术";
             InitializeComponent();
             LoadToolData1();
             LoadToolData2();

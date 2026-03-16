@@ -4,6 +4,7 @@
     {
         public CommunicationManagementControl()
         {
+            this.ControlName = "沟通管理";
             InitializeComponent();
             LoadCommunicationData();
         }

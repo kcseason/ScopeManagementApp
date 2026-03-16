@@ -50,6 +50,7 @@ namespace PMPManagementTool.UserControls
 
         public KnowledgeDomainControl()
         {
+            this.ControlName = "知识领域";
             InitializeComponent();
             InitializeDataGrid();
             LoadAnswers();
@@ -255,7 +256,7 @@ namespace PMPManagementTool.UserControls
             btnAnswer.Text = "答案";
         }
 
-        private void btnShowAnswer_Click(object sender, EventArgs e)
+        public void btnShowAnswer_Click(object sender, EventArgs e)
         {
             if (!isShowingAnswer)
             {

@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.105.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="UserControls\ProcurementManagementControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

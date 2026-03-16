@@ -4,6 +4,7 @@
     {
         public QualityManagementControl()
         {
+            this.ControlName = "质量管理";
             InitializeComponent();
             LoadQualityData();
         }

@@ -9,6 +9,7 @@
         };
         public ResourceManagementControl()
         {
+            this.ControlName = "资源管理";
             InitializeComponent();
             LoadResourceData();
         }

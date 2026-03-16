@@ -4,6 +4,7 @@
     {
         public ProcurementManagementControl()
         {
+            this.ControlName = "采购管理";
             InitializeComponent();
             LoadProcurementData();
         }

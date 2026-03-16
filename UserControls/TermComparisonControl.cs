@@ -5,6 +5,7 @@
         private List<int> isolationRows = new List<int>();
         public TermComparisonControl()
         {
+            this.ControlName = "易混术语";
             InitializeComponent();
             LoadToolData();
             SetIsolationRow();

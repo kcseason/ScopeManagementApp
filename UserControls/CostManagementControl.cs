@@ -8,6 +8,7 @@
         };
         public CostManagementControl()
         {
+            this.ControlName = "成本管理";
             InitializeComponent();
             LoadCostData();
         }
