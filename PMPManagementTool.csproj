@@ -40,6 +40,9 @@
     <Compile Update="UserControls\ScheduleManagementControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="UserControls\KnowledgePointControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="UserControls\TermComparisonControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

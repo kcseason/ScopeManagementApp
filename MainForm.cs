@@ -18,6 +18,24 @@ namespace ScopeManagementApp
         private List<DataGridViewCell> highlightedCells = new List<DataGridViewCell>();
         private Color originalCellColor;
 
+        private Dictionary<string, int> ControlsOrder = new()
+        {
+            { "知识领域", 0},
+            { "整合管理", 1 },
+            { "范围管理", 2 },
+            { "进度管理", 3 },
+            { "成本管理", 4 },
+            { "质量管理", 5 },
+            { "资源管理", 6 },
+            { "沟通管理", 7 },
+            { "风险管理", 8 },
+            { "采购管理", 9 },
+            { "干系人管理", 10 },
+            { "工具与技术", 11 },
+            { "易混术语", 12 },
+            { "知识点", 13 }
+        };
+
         public MainForm()
         {
             InitializeComponent();
@@ -184,7 +202,6 @@ namespace ScopeManagementApp
             }
         }
 
-
         private void FindExportParentControl()
         {
             // 获取当前程序集
@@ -199,11 +216,13 @@ namespace ScopeManagementApp
             foreach (var typeControl in typeControls)
             {
                 var ctrl = Activator.CreateInstance(typeControl) as ParentControl;
-                if (ctrl.ControlName.Equals("知识领域"))
-                    parentControls.Insert(0, ctrl);
-                else
-                    parentControls.Add(ctrl);
+                parentControls.Add(ctrl);
             }
+
+            // 使用LINQ按指定顺序排序
+            parentControls = parentControls
+                .OrderBy(c => ControlsOrder.ContainsKey(c.ControlName) ? ControlsOrder[c.ControlName] : int.MaxValue)
+                .ToList();
         }
 
         private void ShowTableButton_Click(object? sender, EventArgs e)
@@ -227,6 +246,7 @@ namespace ScopeManagementApp
                 case "干系人管理": userControl = new StakeholderManagementControl(); break;
                 case "工具与技术": userControl = new ToolAndTechControl(); break;
                 case "易混术语": userControl = new TermComparisonControl(); break;
+                case "知识点": userControl = new KnowledgePointControl(); break;
             }
 
             if (userControl != null)
@@ -299,7 +319,7 @@ namespace ScopeManagementApp
         /// <param name="startChar">起始字母</param>
         /// <param name="offset">偏移量</param>
         /// <returns>计算后的字母</returns>
-        public static char GetLetterAfterOffset(char startChar, int offset)
+        public char GetLetterAfterOffset(char startChar, int offset)
         {
             // 转换为大写字母处理
             char upperChar = char.ToUpper(startChar);
